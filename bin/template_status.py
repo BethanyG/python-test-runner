@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 import argparse
 from argparse import Namespace
 from enum import IntEnum, auto
