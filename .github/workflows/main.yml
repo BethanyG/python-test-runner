@@ -44,6 +44,9 @@ jobs:
           git clone https://github.com/exercism/python .python
           git clone https://github.com/exercism/problem-specifications .problem-specifications 
 
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
+          
 #      - name: Install Dependencies
 #        run: |
 #          pip install -r requirements-generator.txt
