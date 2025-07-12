@@ -36,27 +36,30 @@ jobs:
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
 
-      - name: Install Git
-        run: apk update && apk add git --no-cache
+#      - name: Install Git
+#        run: apk update && apk add git --no-cache
 
       - name: Clone Spec and Content Repos
         run: |
           git clone https://github.com/exercism/python .python
           git clone https://github.com/exercism/problem-specifications .problem-specifications 
 
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements-generator.txt
+#      - name: Install Dependencies
+#        run: |
+#          pip install -r requirements-generator.txt
+#
+#      - name: Generate tests
+#        run: |
+#          bin/generate_tests.py --verbose -p .problem-specifications --check
+#
+#      - name: Test template status
+#        continue-on-error: true
+#        run: |
+#          bin/template_status.py -v -p .problem-specifications
+#
+#      - name: Check exercises
+#        run: |
+#          bin/test_exercises.py
 
-      - name: Generate tests
-        run: |
-          bin/generate_tests.py --verbose -p .problem-specifications --check
-          
-      - name: Test template status
-        continue-on-error: true
-        run: |
-          bin/template_status.py -v -p .problem-specifications
-
-      - name: Check exercises
-        run: |
-          bin/test_exercises.py
+      - name: Run Exercise Tests
+        run: docker compose up
