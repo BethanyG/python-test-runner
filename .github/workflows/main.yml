@@ -45,17 +45,12 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
-      - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: 3.13.5
-
       - name: Download & Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install flake8 requests
+          python3 -m pip3 install --upgrade pip
+          pip3 install flake8 requests
           git clone https://github.com/exercism/problem-specifications .problem-specifications
-          pip install -r requirements-generator.txt
+          pip3 install -r requirements-generator.txt
 
       - name: Generate tests
         run: |
