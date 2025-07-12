@@ -71,7 +71,7 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          ./bin/template_status.py -v -p .problem-specifications
+          bin/template_status.py -v -p .problem-specifications
 
   canonical_sync:
     runs-on: ubuntu-24.04
@@ -89,4 +89,4 @@ jobs:
 
       - name: Check exercises
         run: |
-          ./bin/test_exercises.py
+          bin/test_exercises.py
