@@ -59,7 +59,7 @@ jobs:
 
       - name: Generate tests
         run: |
-          bin/generate_tests.py --verbose -p .problem-specifications --check
+          .python/bin/generate_tests.py --verbose -p .problem-specifications --check
 
 #      - name: Lint with flake8
 #        run: |
@@ -71,7 +71,7 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          bin/template_status.py -v -p .problem-specifications
+          ./python/bin/template_status.py -v -p .problem-specifications
 
   canonical_sync:
     runs-on: ubuntu-24.04
@@ -89,4 +89,4 @@ jobs:
 
       - name: Check exercises
         run: |
-          bin/test_exercises.py
+          ./python/bin/test_exercises.py
