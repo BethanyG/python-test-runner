@@ -36,17 +36,8 @@ jobs:
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
 
-  housekeeping:
-    name: housekeeping
-    runs-on: ubuntu-24.04
-    container:
-      image: python:3.13.5-alpine3.22
-    steps:
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-
-      - name: Install Git
-        run: apk update && apk add git --no-cache
+      - name: Setup Content Tests
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Install Python dependencies
         run: |
@@ -73,16 +64,9 @@ jobs:
         run: |
           bin/template_status.py -v -p .problem-specifications
 
-  canonical_sync:
-    runs-on: ubuntu-24.04
-    container:
-      image: python:3.13.5-alpine3.22
-    needs: housekeeping
-
-    steps:
-    - name: Check exercises
-      run: |
-        bin/test_exercises.py
+      - name: Check exercises
+        run: |
+           bin/test_exercises.py
 #    strategy:
 #      matrix:
 #        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
