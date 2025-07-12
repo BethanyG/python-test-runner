@@ -64,4 +64,4 @@ jobs:
 
       - name: Run Exercise Tests
         run: |
-          bin/test_exercises.py --runner test-runner
+          bin/run-exercise-tests-in-docker.sh
