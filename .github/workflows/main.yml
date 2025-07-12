@@ -51,6 +51,7 @@ jobs:
         run: |
           pip install flake8 requests
           git clone https://github.com/exercism/problem-specifications .problem-specifications
+          git clone https://github.com/exercism/python/exercises .exercises
           pip install -r requirements-generator.txt
 
       - name: Generate tests
