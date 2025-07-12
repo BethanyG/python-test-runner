@@ -79,12 +79,16 @@ jobs:
         python-version: [ 3.9, 3.10, 3.11, 3.12 ]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: |
+      - name: Install Git
+        run: apk update && apk add git --no-cache
+
+      - name: Download & Install dependencies
+        run: |
+          pip install flake8 requests
           pip install -r requirements-generator.txt
           git clone https://github.com/exercism/python .python
 
