@@ -76,7 +76,7 @@ jobs:
     needs: housekeeping
     strategy:
       matrix:
-        python-version: [ 3.9, 3.10.6, 3.11.2, 3.12.10 ]
+        python-version: [ 3.9, 3.10, 3.11, 3.12 ]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
