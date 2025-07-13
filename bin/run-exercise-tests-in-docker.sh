@@ -23,7 +23,7 @@ docker run \
     --rm \
     --network none \
     --read-only \
-    --mount type=bind,src="${PWD}/python",dst=/opt/test-runner/python \
+    --mount type=bind,src="${PWD}/python",dst=/opt/test-runner/ \
     --mount type=tmpfs,dst=/tmp \
     --workdir /opt/test-runner \
-    --entrypoint exercism/python-test-runner/python/bin/test_exercises.py --runner test-runner
+    --entrypoint test_exercises.py --runner test-runner
