@@ -39,10 +39,6 @@ jobs:
 #      - name: Install Git
 #        run: apk update && apk add git --no-cache
 
-      - name: https://github.com/actions/checkout/issues/1720
-        run: |
-          chmod -R u+rwX .
-
       - name: Checkout Python Repo
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
         with:
