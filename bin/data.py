@@ -14,7 +14,6 @@ except ModuleNotFoundError:
     import tomli as tomllib
 
 
-
 def _custom_dataclass_init(self, *args, **kwargs):
     # print(self.__class__.__name__, "__init__")
     names = [field.name for field in fields(self)]
