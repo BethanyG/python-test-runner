@@ -47,14 +47,14 @@ jobs:
         with:
           repository: exercism/problem-specifications
           ref: main
-          path: /problem-specifications
+          path: 'problem-specifications'
 
       - name: Checkout Exercises
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: exercism/python
           ref: main
-          path: /python
+          path: 'python'
 
       - name: Install Dependencies
         run: |
