@@ -14,6 +14,7 @@ jobs:
   build:
     name: Test Runner
     runs-on: ubuntu-24.04
+
     steps:
       - name: Checkout code
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
@@ -39,18 +40,75 @@ jobs:
 #      - name: Install Git
 #        run: apk update && apk add git --no-cache
 
-      - name: Checkout Python Repo
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
-        with:
-          repository: exercism/python
-          path: main
 
-      - name: Checkout Python Repo
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
-        with:
-          repository: exercism/problem-specifications
-          path: main
+      housekeeping:
+        name: housekeeping
+        runs-on: ubuntu-24.04
+        needs: Test Runner
 
+        steps:
+          - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+          - name: Set up Python
+            uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+            with:
+              python-version: 3.13.5
+
+          - name: Download & Install dependencies
+            run: |
+              git clone https://github.com/exercism/problem-specifications .problem-specifications
+              pip install -r requirements-generator.txt
+
+          - name: Generate tests
+            run: |
+              bin/generate_tests.py --verbose -p .problem-specifications --check
+
+          - name: Lint with flake8
+            run: |
+              # stop the build if there are Python syntax errors or undefined names
+              flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+              # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+              flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+          - name: Test Template Status
+            continue-on-error: true
+            run: |
+              ./bin/template_status.py -v -p .problem-specifications
+
+      canonical_sync:
+        runs-on: ubuntu-22.04
+        needs: housekeeping
+
+        strategy:
+          matrix:
+            python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+
+        steps:
+          - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+          - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+            with:
+              python-version: ${{ matrix.python-version }}
+
+          - name: Check Python Exercises
+            run: |
+              ./bin/test_exercises.py
+
+          - name: Checkout Python Repo
+            uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+            with:
+              repository: exercism/python
+              path: main
+
+          - name: Run Exercise Tests
+            run: |
+              ./bin/test_exercises.py --runner test-runner
+
+#      - name: Checkout Specs Repo
+#        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+#        with:
+#          repository: exercism/problem-specifications
+#          path: main
+#
 
 #      - name: Install Dependencies
 #        run: |
@@ -69,6 +127,6 @@ jobs:
 #        run: |
 #          bin/test_exercises.py
 
-      - name: Run Exercise Tests
-        run: |
-          bin/test_exercises.py --runner test-runner
+#      - name: Run Exercise Tests
+#        run: |
+#          bin/test_exercises.py --runner test-runner
