@@ -58,7 +58,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r requirements-generator.txt
+          pip install -r ./test-runner/requirements-generator.txt
           
       - name: Generate tests
         run: |
