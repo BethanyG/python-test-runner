@@ -15,7 +15,7 @@ from generate_tests import clone_if_missing
 from githelp import Repo
 from test_exercises import check_assignment
 
-DEFAULT_SPEC_LOCATION = Path('/home/runner/work/python-test-runner/python-test-runner/problem-specifications')
+DEFAULT_SPEC_LOCATION = Path('')
 
 logging.basicConfig(format="%(levelname)s:%(message)s")
 logger = logging.getLogger("generator")
