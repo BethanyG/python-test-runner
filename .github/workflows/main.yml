@@ -51,11 +51,11 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
         with:
           repository: exercism/problem-specifications
-          path: /opt/problem-specifications
+          path: /home/runner/work/python-test-runner/python-test-runner/problem-specifications
 
       - name: Generate tests
         run: |
-          bin/generate_tests.py --verbose -p /opt/problem-specifications --check
+          bin/generate_tests.py --verbose -p /home/runner/work/python-test-runner/python-test-runner/problem-specifications --check
 
 #      - name: Lint with flake8
 #        run: |
@@ -67,7 +67,7 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          bin/template_status.py -v -p /opt/problem-specifications
+          bin/template_status.py -v -p /home/runner/work/python-test-runner/python-test-runner/problem-specifications
 
   canonical_sync:
     runs-on: ubuntu-22.04
