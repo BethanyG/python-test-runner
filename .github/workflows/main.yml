@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: python:3.13.5-alpine3.22
+    defaults:
+      run:
+        working-directory: ./python-test-runner
     steps:
       - name: Checkout Problem Specs
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -58,11 +61,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r ./test-runner/requirements-generator.txt
+          pip install -r ./python-test-runner/requirements-generator.txt
           
       - name: Generate tests
         run: |
-          bin/generate_tests.py --verbose -p /problem-specifications --check
+          bin/generate_tests.py --verbose -p ./python-test-runner/problem-specifications --check
 
 #      - name: Lint with flake8
 #        run: |
@@ -74,7 +77,7 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          bin/template_status.py -v -p /problem-specifications
+          bin/template_status.py -v -p ./python-test-runner/problem-specifications
 
       - name: Check exercises
         run: |
