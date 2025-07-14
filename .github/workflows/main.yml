@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435
@@ -39,23 +39,30 @@ jobs:
   housekeeping:
     name: housekeeping
     runs-on: ubuntu-24.04
+    container:
+      image: python:3.13.5-alpine3.22
     steps:
-      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-
-      - name: Download & Install dependencies
-        run: |
-          pip install -r requirements-generator.txt
-
-      - name: Checkout Specs
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+      - name: Checkout Problem Specs
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: exercism/problem-specifications
-          path: /home/runner/work/python-test-runner/python-test-runner/problem-specifications
+          ref: main
+          path: /problem-specifications
 
+      - name: Checkout Exercises
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: exercism/python
+          ref: main
+          path: /python
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements-generator.txt
+          
       - name: Generate tests
         run: |
-          bin/generate_tests.py --verbose -p /home/runner/work/python-test-runner/python-test-runner/problem-specifications --check
+          bin/generate_tests.py --verbose -p /problem-specifications --check
 
 #      - name: Lint with flake8
 #        run: |
@@ -67,25 +74,9 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          bin/template_status.py -v -p /home/runner/work/python-test-runner/python-test-runner/problem-specifications
-
-  canonical_sync:
-    runs-on: ubuntu-22.04
-    needs: housekeeping
-    strategy:
-      matrix:
-        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements-generator.txt
+          bin/template_status.py -v -p /problem-specifications
 
       - name: Check exercises
         run: |
-          bin/test_exercises.py
+          cd python
+          ../test-runner/bin/test_exercises.py
