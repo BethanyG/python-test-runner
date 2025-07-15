@@ -82,5 +82,4 @@ jobs:
       - name: Check exercises
         run: |
           cd python
-          ../bin/test_exercises.py --runner exercism/python-test-runner
-
+          ../bin/test_exercises.py --runner test-runner
