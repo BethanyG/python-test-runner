@@ -80,12 +80,11 @@ jobs:
           bin/template_status.py -v -p ./problem-specifications
 
       - name: Switch to Python Dir
-        run: cd python
+        run: |
+          cd python
+          docker compose run test-runner
 
-      - name: Test Exercises
-        uses: hoverkraft-tech/compose-action@v2.3.0
-        with:
-          compose-file: "docker-compose.yml"
+
 
 
           
