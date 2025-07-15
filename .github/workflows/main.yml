@@ -82,4 +82,5 @@ jobs:
       - name: Check exercises
         run: |
           cd python
-          docker compose up
+          ../bin/test_exercises.py --runner exercism/python-test-runner
+
