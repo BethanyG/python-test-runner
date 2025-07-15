@@ -129,7 +129,7 @@ def run_with_test_runner(exercise, workdir, quiet: bool = False) -> int:
         args = ['./bin/run.sh', exercise.slug, workdir, workdir]
     else:
         args = [
-            'docker compose',
+            'docker-compose',
             'run',
             '-w', str(TEST_RUNNER_DIR),
             '--entrypoint', './bin/run.sh',
