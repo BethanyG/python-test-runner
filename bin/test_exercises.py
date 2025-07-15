@@ -17,7 +17,7 @@ from data import Config, ExerciseConfig, ExerciseInfo, ExerciseStatus
 # Allow high-performance tests to be skipped
 ALLOW_SKIP = ['alphametics', 'largest-series-product']
 
-TEST_RUNNER_DIR = Path('python-test-runner')
+TEST_RUNNER_DIR = Path('/__w/python-test-runner/python-test-runner/')
 
 RUNNERS = {}
 
@@ -129,7 +129,7 @@ def run_with_test_runner(exercise, workdir, quiet: bool = False) -> int:
         args = ['./bin/run.sh', exercise.slug, workdir, workdir]
     else:
         args = [
-            'docker-compose',
+            'docker compose',
             'run',
             '-w', str(TEST_RUNNER_DIR),
             '--entrypoint', './bin/run.sh',
