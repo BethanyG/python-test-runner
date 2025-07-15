@@ -79,19 +79,7 @@ jobs:
         run: |
           bin/template_status.py -v -p ./problem-specifications
 
-#      - name: Switch to Python Dir
-#        run: cd python
-
-      - name: Test Exercises
-        uses: hoverkraft-tech/compose-action@v2.3.0
-        with:
-          cwd: ./python
-          compose-file: ./docker-compose.yml
-          services: |
-            test-runner:
-              image: exercism/python-test-runner
-            
-
-
-
-          
+      - name: Check exercises
+        run: |
+          cd python
+          docker compose up
