@@ -78,7 +78,7 @@ jobs:
         continue-on-error: true
         run: |
           cd python
-          ../bin/template_status.py -v -p ./problem-specifications
+          ../bin/template_status.py -v -p ../problem-specifications
 
       - name: Check exercises
         run: |
