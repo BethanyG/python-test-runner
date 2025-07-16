@@ -37,7 +37,7 @@ jobs:
         run: bin/run-tests-in-docker.sh
 
   housekeeping:
-    name: housekeeping
+    name: Python Content Validation
     runs-on: ubuntu-24.04
     container:
       image: python:3.13.5-alpine3.22
