@@ -82,7 +82,7 @@ def filter_exercises(exercises: List[ExerciseInfo], pattern: str) -> Iterator[Ex
             if exercise.type == 'concept':
                 # Concept exercises are not generated
                 continue
-            if fnmatch(exercise["slug"], pattern):
+            if fnmatch(exercise.slug, pattern):
                 yield exercise
 
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
             TemplateStatus.TEST_FAILURE: [],
         }
         config = Config.load()
-        for exercise in filter_exercises(config.exercises.all()):
+        for exercise in filter_exercises(config.exercises.all(), "*"):
             status = get_status(exercise, opts.spec_path)
             if status == TemplateStatus.OK:
                 logger.info(f"{exercise.slug}: {status.name}")

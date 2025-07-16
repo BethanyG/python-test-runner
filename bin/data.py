@@ -330,7 +330,7 @@ class Config:
             self.tags = []
 
     @classmethod
-    def load(cls, path="config.json"):
+    def load(cls, path="/__w/python-test-runner/python-test-runner/python/config.json"):
         try:
             with Path(path).open() as f:
                 return cls(**json.load(f))
