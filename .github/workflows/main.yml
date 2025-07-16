@@ -77,7 +77,7 @@ jobs:
       - name: Test template status
         continue-on-error: true
         run: |
-          bin/template_status.py -v -p ./problem-specifications
+          bin/template_status.py -v -p ./problem-specifications --spec-path ./python
 
       - name: Check exercises
         run: |
