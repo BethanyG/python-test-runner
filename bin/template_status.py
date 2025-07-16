@@ -16,7 +16,7 @@ from githelp import Repo
 from test_exercises import check_assignment
 
 PROBLEM_SPEC_REPO = "https://github.com/exercism/problem-specifications.git"
-DEFAULT_SPEC_LOCATION = Path("/__w/python-test-runner/python-test-runner/python")
+DEFAULT_SPEC_LOCATION = Path(".problem-specifications")
 # DEFAULT_SPEC_LOCATION = Path(".problem-specifications")
 
 logging.basicConfig(format="%(levelname)s:%(message)s")
