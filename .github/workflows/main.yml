@@ -40,7 +40,7 @@ jobs:
     name: Python Content Validation
     runs-on: ubuntu-24.04
     container:
-      image: exercism/python-test-runner
+      image: python:3.13.5-alpine3.22
     steps:
       - name: Checkout Runner Code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
